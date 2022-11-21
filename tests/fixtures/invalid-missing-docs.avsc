@@ -1,0 +1,61 @@
+{
+  "type": "record",
+  "name": "MyRecord",
+  "namespace": "com.samsung.ads",
+  "fields":
+    [
+      {
+       "name": "id",
+       "type": "int"
+      },
+      {
+        "name": "MyArrayOfNestedRecords",
+        "type": {
+            "type": "array",
+            "items": {
+              "type": "record",
+              "name": "NestedRecordB",
+              "fields":
+                [
+                  {
+                    "name": "nestedId",
+                    "type": "int"
+                  }
+                ]
+            }
+          }
+      },
+      {
+        "name": "MyMapOfNestedRecords",
+        "type": {
+            "type": "map",
+            "values": {
+              "type": "record",
+              "name": "NestedRecordC",
+              "fields":
+                [
+                  {
+                    "name": "nestedId",
+                    "type": "int"
+                  }
+                ]
+            }
+          }
+      },
+      {
+       "name": "MyUnionNestedRecord",
+       "type": [ "null", {
+          "type": "record",
+          "name": "NestedRecordA",
+          "fields":
+            [
+              {
+                "name": "nestedId",
+                "type": "int"
+              }
+            ]
+          }]
+      }
+    ]
+}
+
