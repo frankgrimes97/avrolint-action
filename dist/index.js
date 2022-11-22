@@ -180,7 +180,7 @@ let getComplexUnionFields = function(pathPrefix, avroSchemaJson) {
   return complexUnionFields;
 }
 
-module.exports = lint;
+module.exports = avrolint;
 
 
 
@@ -10613,7 +10613,7 @@ async function run() {
       {required: true}
     );
     console.log(`Linting ${avscToLint}!`);
-    await avrolint.lint(
+    await avrolint(
       avscToLint,
 			{
         "undocumentedCheck": undocumentedCheck,
