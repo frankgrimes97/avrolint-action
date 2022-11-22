@@ -52,13 +52,12 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
         continue;
       }
 
-			if (options.undocumentedCheck) {
+      if (options.undocumentedCheck) {
         const undocumentedFields = getUndocumentedFields(avroType.getName(), avroSchemaJson);
         if (undocumentedFields.length > 0) {
           filePathsWithErrors.push(filePath);
           const errorMessage = `Invalid Schema at '${filePath}'! The following fields are not documented:`;
           core.error(errorMessage.concat("\n  ", ...undocumentedFields.join("\n  ")));
-          continue;
         }
       }
 
@@ -66,9 +65,8 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
         const complexUnionFields = getComplexUnionFields(avroType.getName(), avroSchemaJson);
         if (complexUnionFields.length > 0) {
           filePathsWithErrors.push(filePath);
-					const errorMessage = `Invalid Schema at '${filePath}'! The following fields are or contain complex unions:`;
+          const errorMessage = `Invalid Schema at '${filePath}'! The following fields are or contain complex unions:`;
           core.error(errorMessage.concat("\n  ", ...complexUnionFields.join("\n  ")));
-          continue;
         }
       }
     }
