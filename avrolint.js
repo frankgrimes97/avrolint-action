@@ -15,7 +15,7 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
     }
 
     var filePathsWithErrors = new Set();
-		for (const filePath of filePaths) {
+    for (const filePath of filePaths) {
       if (typeof filePath === 'undefined' || !fs.existsSync(filePath)) {
         if (typeof filePath === 'undefined') {
           filePathsWithErrors.add("undefined"); // without this a blank error message is printed
@@ -75,7 +75,7 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
 };
 
 let isOrContainsRecord = function(field) {
-	if (Array.isArray(field.type)) {
+  if (Array.isArray(field.type)) {
     // Check UNION type for RECORD type
     return field.type.filter(x => x.type?.toUpperCase() === "RECORD").length > 0;
   }
@@ -128,13 +128,12 @@ let getUndocumentedFields = function(pathPrefix, avroSchemaJson) {
 }
 
 let getUnionSchema = function(field) {
-
   if (isUnionType(field.type)) {
     return field.type;
   }
 
-	const upperCaseFieldType = field.type.type?.toUpperCase();
-	if (upperCaseFieldType === "ARRAY" && isUnionType(field.type.items)) {
+  const upperCaseFieldType = field.type.type?.toUpperCase();
+  if (upperCaseFieldType === "ARRAY" && isUnionType(field.type.items)) {
     return field.type.items;
   } else if (upperCaseFieldType === "MAP" && isUnionType(field.type.values)) {
     return field.type.values;
@@ -143,17 +142,17 @@ let getUnionSchema = function(field) {
 }
 
 let isComplexUnion = function(field) {
-	const unionSchema = getUnionSchema(field);
+  const unionSchema = getUnionSchema(field);
 
-	if (!unionSchema) {
+  if (!unionSchema) {
     return false;
   }
 
-	if (unionSchema.length == 2 && unionSchema[0].toUpperCase() === "NULL") {
-		return false;
-	}
+  if (unionSchema.length == 2 && unionSchema[0].toUpperCase() === "NULL") {
+    return false;
+  }
 
-	return true;
+ return true;
 }
 
 let getComplexUnionFields = function(pathPrefix, avroSchemaJson) {
@@ -162,12 +161,12 @@ let getComplexUnionFields = function(pathPrefix, avroSchemaJson) {
   for (const field of avroSchemaJson.fields) {
     if (isComplexUnion(field)) {
       complexUnionFields.push(pathPrefix + '.' + field.name);
-		}
+    }
 
-		if (isOrContainsRecord(field)) {
+    if (isOrContainsRecord(field)) {
       complexUnionFields.push(...getComplexUnionFields(pathPrefix + '.' + field.name, getRecordSchema(field)));
-		}
-	}
+    }
+  }
 
   return complexUnionFields;
 }
