@@ -71,7 +71,7 @@ test('throws error on invalid AVSC file with missing docs', async () => {
 
 test('throws error on multiple invalid AVSC files with missing docs', async () => {
   const fileName = "./tests/fixtures/invalid-missing-docs.avsc";
-  await expect(lint(`["${fileName}","${fileName}"]`)).rejects.toThrow(`Validation failed for the following files:${os.EOL}  ${fileName}${os.EOL}  ${fileName}`);
+  await expect(lint(`["${fileName}","${fileName}"]`)).rejects.toThrow(`Validation failed for the following files:${os.EOL}  ${fileName}`);
 
   const expectedErrorMessage = `Invalid Schema at '${fileName}'! The following fields are not documented:
   com.samsung.ads.MyRecord.id
