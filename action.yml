@@ -1,0 +1,31 @@
+---
+name: 'Avrolint Action'
+description: 'GitHub Action to run linting checks using avro-js'
+inputs:
+  avsc-to-lint:  # id of input
+    description: |
+      Avro schema file(s) to lint.
+      Can be a single file path:
+        e.g. '/tmp/avroSchema.avsc'
+      Can be a string containing a JSON-encoded array of paths:
+        e.g. '["/tmp/avroSchemaA.avsc", "/tmp2/avroSchemaB.avsc"]'
+    required: true
+  undocumented-field-check:
+    description: |
+      Check that all fields are documented.
+    required: true
+    default: true
+  complex-union-check:
+    description: |
+      Check that union types are all simple types.
+      i.e. only used to express nullability
+      This is enforced because schemas which have complex union types are difficult for most programming language type systems to handle gracefully.
+      e.g.
+        valid: ["null", <TYPE>]
+        invalid: [<TYPE1>, <TYPE2>]
+        invalid: ["null", <TYPE1>, <TYPE2>]
+    required: true
+    default: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

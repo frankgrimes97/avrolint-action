@@ -1,0 +1,35 @@
+{
+  "type": "record",
+  "name": "MyRecord",
+  "namespace": "com.samsung.ads",
+  "fields":
+    [
+      {
+        "name": "MyComplexUnionA",
+        "type": [ "int", "string" ],
+        "doc": "My Complex Union A"
+      },
+      {
+        "name": "MyComplexUnionB",
+        "type": [ "null", "int", "string" ],
+        "doc": "My Complex Union B"
+      },
+      {
+        "name": "MyArrayOfComplexUnions",
+        "type": {
+            "type": "array",
+            "items": [ "int", "string" ]
+          },
+          "doc": "My Array Of Nested Unions"
+      },
+      {
+        "name": "MyMapOfComplexUnions",
+        "type": {
+            "type": "map",
+            "values": [ "int", "string" ]
+          },
+          "doc": "My Map Of Nested Unions"
+      }
+    ]
+}
+
