@@ -2,7 +2,7 @@ const fs = require('fs')
 const core = require('@actions/core');
 const avro = require('avro-js');
 
-let lint = function(avscFilePath, options={"undocumentedCheck": true, "complexUnionCheck": true}) {
+let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "complexUnionCheck": true}) {
   return new Promise((resolve) => {
     // default, assume input is single file
     var filePaths = [avscFilePath];
