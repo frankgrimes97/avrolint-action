@@ -14,13 +14,13 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
 			// ignore
     }
 
-    var filePathsWithErrors = [];
+    var filePathsWithErrors = new Set();
 		for (const filePath of filePaths) {
       if (typeof filePath === 'undefined' || !fs.existsSync(filePath)) {
         if (typeof filePath === 'undefined') {
-          filePathsWithErrors.push("undefined"); // without this a blank error message is printed
+          filePathsWithErrors.add("undefined"); // without this a blank error message is printed
         } else {
-          filePathsWithErrors.push(filePath);
+          filePathsWithErrors.add(filePath);
         }
         core.error("avscFilePath is invalid: '" + filePath + "'");
         continue;
@@ -32,7 +32,7 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
       try {
         avroSchemaJson = JSON.parse(fileContents);
       } catch (err) {
-        filePathsWithErrors.push(filePath);
+        filePathsWithErrors.add(filePath);
         core.error("AVSC file specified is not valid/parseable JSON: " + filePath + "\n  " + err.toString());
         continue;
       }
@@ -41,7 +41,7 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
       try {
         avroType = avro.parse(avroSchemaJson);
       } catch (err) {
-        filePathsWithErrors.push(filePath);
+        filePathsWithErrors.add(filePath);
         core.error("AVSC file specified is not valid/parseable: " + filePath + "\n  " + err.toString());
         continue;
       }
@@ -49,7 +49,7 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
       if (options.undocumentedCheck) {
         const undocumentedFields = getUndocumentedFields(avroType.getName(), avroSchemaJson);
         if (undocumentedFields.length > 0) {
-          filePathsWithErrors.push(filePath);
+          filePathsWithErrors.add(filePath);
           const errorMessage = `Invalid Schema at '${filePath}'! The following fields are not documented:`;
           core.error(errorMessage.concat("\n  ", ...undocumentedFields.join("\n  ")));
         }
@@ -58,16 +58,16 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
       if (options.complexUnionCheck) {
         const complexUnionFields = getComplexUnionFields(avroType.getName(), avroSchemaJson);
         if (complexUnionFields.length > 0) {
-          filePathsWithErrors.push(filePath);
+          filePathsWithErrors.add(filePath);
           const errorMessage = `Invalid Schema at '${filePath}'! The following fields are or contain complex unions:`;
           core.error(errorMessage.concat("\n  ", ...complexUnionFields.join("\n  ")));
         }
       }
     }
 
-    if (filePathsWithErrors.length > 0) {
+    if (filePathsWithErrors.size > 0) {
       const errorMessage = "Validation failed for the following files:";
-      throw new Error(errorMessage.concat("\n  ", ...filePathsWithErrors.join("\n  ")));
+      throw new Error(errorMessage.concat("\n  ", ...Array.from(filePathsWithErrors.keys()).join("\n  ")));
     }
 
     resolve("done!");
