@@ -8,7 +8,7 @@ const fs = __nccwpck_require__(7147)
 const core = __nccwpck_require__(2186);
 const avro = __nccwpck_require__(8666);
 
-let lint = function(avscFilePath, options={"undocumentedCheck": true, "complexUnionCheck": true}) {
+let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "complexUnionCheck": true}) {
   return new Promise((resolve) => {
     // default, assume input is single file
     var filePaths = [avscFilePath];
