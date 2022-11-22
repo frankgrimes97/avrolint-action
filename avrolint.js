@@ -174,5 +174,5 @@ let getComplexUnionFields = function(pathPrefix, avroSchemaJson) {
   return complexUnionFields;
 }
 
-module.exports = lint;
+module.exports = avrolint;
 
