@@ -122,6 +122,32 @@ test('throws error on invalid AVSC file with complex union', async () => {
   ]);
 });
 
+test('throws error on multiple invalid AVSC files', async () => {
+  const fileName1 = "./tests/fixtures/invalid-missing-docs.avsc";
+  const fileName2 = "./tests/fixtures/invalid-complex-union.avsc";
+  await expect(lint(`["${fileName1}","${fileName2}"]`)).rejects.toThrow(`Validation failed for the following files:${os.EOL}  ${fileName1}${os.EOL}  ${fileName2}`);
+
+  const expectedErrorMessage1 = `Invalid Schema at '${fileName1}'! The following fields are not documented:
+  com.samsung.ads.MyRecord.id
+  com.samsung.ads.MyRecord.MyArrayOfNestedRecords
+  com.samsung.ads.MyRecord.MyArrayOfNestedRecords.nestedId
+  com.samsung.ads.MyRecord.MyMapOfNestedRecords
+  com.samsung.ads.MyRecord.MyMapOfNestedRecords.nestedId
+  com.samsung.ads.MyRecord.MyUnionNestedRecord
+  com.samsung.ads.MyRecord.MyUnionNestedRecord.nestedId`.replaceAll("\n", "%0A");
+
+	const expectedErrorMessage2 = `Invalid Schema at '${fileName2}'! The following fields are or contain complex unions:
+  com.samsung.ads.MyRecord.MyComplexUnionA
+  com.samsung.ads.MyRecord.MyComplexUnionB
+  com.samsung.ads.MyRecord.MyArrayOfComplexUnions
+  com.samsung.ads.MyRecord.MyMapOfComplexUnions`.replaceAll("\n", "%0A");
+
+  assertWriteCalls([
+    `::error::${expectedErrorMessage1}${os.EOL}`,
+    `::error::${expectedErrorMessage2}${os.EOL}`
+  ]);
+});
+
 test('does not throw error on invalid AVSC file with missing docs when undocumentedCheck disabled', async () => {
   const fileName = "./tests/fixtures/invalid-missing-docs.avsc";
 	await expect(lint(fileName, {"undocumentedCheck": false})).resolves;
