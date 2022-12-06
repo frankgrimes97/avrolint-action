@@ -7,7 +7,7 @@ Schema files (.avsc).
 
 <!-- start usage -->
 ```yaml
-- uses: adgear/avrolint-action@v1
+- uses: frankgrimes97/avrolint-action@v1
   with:
     # Avro schema file(s) to lint
     # Can be a single file path:
