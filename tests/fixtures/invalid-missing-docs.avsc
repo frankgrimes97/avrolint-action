@@ -9,6 +9,20 @@
        "type": "int"
       },
       {
+       "name": "MyNestedRecord",
+       "type": {
+          "type": "record",
+          "name": "NestedRecordA",
+          "fields":
+            [
+              {
+                "name": "nestedId",
+                "type": "int"
+              }
+            ]
+          }
+      },
+      {
         "name": "MyArrayOfNestedRecords",
         "type": {
             "type": "array",
@@ -46,7 +60,7 @@
        "name": "MyUnionNestedRecord",
        "type": [ "null", {
           "type": "record",
-          "name": "NestedRecordA",
+          "name": "NestedRecordD",
           "fields":
             [
               {
