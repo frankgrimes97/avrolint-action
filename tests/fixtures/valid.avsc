@@ -10,30 +10,27 @@
        "doc": "My Record Identifier"
       },
       {
+       "name": "MyNestedRecord",
+       "type": {
+          "type": "record",
+          "name": "NestedRecordA",
+          "fields":
+            [
+              {
+                "name": "nestedId",
+                "type": "int",
+                "doc": "My Record Identifier"
+              }
+            ],
+            "doc": "My Nested RecordA Identifier"
+          },
+        "doc": "My Nested Record"
+      },
+      {
         "name": "MyArrayOfNestedRecords",
         "type": {
             "type": "array",
             "items": {
-              "type": "record",
-              "name": "NestedRecordA",
-              "fields":
-                [
-                  {
-                    "name": "nestedId",
-                    "type": "int",
-                    "doc": "My Record Identifier"
-                  }
-                ],
-              "doc": "My Nested RecordA Identifier"
-            }
-          },
-          "doc": "My Array Of Nested Records"
-      },
-      {
-        "name": "MyMapOfNestedRecords",
-        "type": {
-            "type": "map",
-            "values": {
               "type": "record",
               "name": "NestedRecordB",
               "fields":
@@ -47,13 +44,33 @@
               "doc": "My Nested RecordB Identifier"
             }
           },
+          "doc": "My Array Of Nested Records"
+      },
+      {
+        "name": "MyMapOfNestedRecords",
+        "type": {
+            "type": "map",
+            "values": {
+              "type": "record",
+              "name": "NestedRecordC",
+              "fields":
+                [
+                  {
+                    "name": "nestedId",
+                    "type": "int",
+                    "doc": "My Record Identifier"
+                  }
+                ],
+              "doc": "My Nested RecordC Identifier"
+            }
+          },
           "doc": "My Map Of Nested Records"
       },
       {
        "name": "MyUnionNestedRecord",
        "type": [ "null", {
           "type": "record",
-          "name": "NestedRecordC",
+          "name": "NestedRecordD",
           "fields":
             [
               {
@@ -62,7 +79,7 @@
                 "doc": "My Record Identifier"
               }
             ],
-            "doc": "My Nested RecordC Identifier"
+            "doc": "My Nested RecordD Identifier"
           }],
         "doc": "My Union Of Nested Record"
       }

@@ -57,6 +57,8 @@ test('throws error on invalid AVSC file with missing docs', async () => {
 
   const expectedErrorMessage = `Invalid Schema at '${fileName}'! The following fields are not documented:
   com.samsung.ads.MyRecord.id
+  com.samsung.ads.MyRecord.MyNestedRecord
+  com.samsung.ads.MyRecord.MyNestedRecord.nestedId
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords.nestedId
   com.samsung.ads.MyRecord.MyMapOfNestedRecords
@@ -75,6 +77,8 @@ test('throws error on multiple invalid AVSC files with missing docs', async () =
 
   const expectedErrorMessage = `Invalid Schema at '${fileName}'! The following fields are not documented:
   com.samsung.ads.MyRecord.id
+  com.samsung.ads.MyRecord.MyNestedRecord
+  com.samsung.ads.MyRecord.MyNestedRecord.nestedId
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords.nestedId
   com.samsung.ads.MyRecord.MyMapOfNestedRecords
@@ -95,6 +99,8 @@ test('throws error on invalid AVSC files, one valid and one with missing docs', 
 
   const expectedErrorMessage = `Invalid Schema at '${fileNameInvalid}'! The following fields are not documented:
   com.samsung.ads.MyRecord.id
+  com.samsung.ads.MyRecord.MyNestedRecord
+  com.samsung.ads.MyRecord.MyNestedRecord.nestedId
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords.nestedId
   com.samsung.ads.MyRecord.MyMapOfNestedRecords
@@ -129,6 +135,8 @@ test('throws error on multiple invalid AVSC files', async () => {
 
   const expectedErrorMessage1 = `Invalid Schema at '${fileName1}'! The following fields are not documented:
   com.samsung.ads.MyRecord.id
+  com.samsung.ads.MyRecord.MyNestedRecord
+  com.samsung.ads.MyRecord.MyNestedRecord.nestedId
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords
   com.samsung.ads.MyRecord.MyArrayOfNestedRecords.nestedId
   com.samsung.ads.MyRecord.MyMapOfNestedRecords

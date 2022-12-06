@@ -104,7 +104,7 @@ let getRecordSchema = function(field) {
 
   const upperCaseFieldType = field.type.type?.toUpperCase();
   if (upperCaseFieldType === "RECORD") {
-    return field;
+    return field.type;
   } else if (upperCaseFieldType === "ARRAY" && field.type.items?.type?.toUpperCase() === "RECORD") {
     return field.type.items;
   } else if (upperCaseFieldType === "MAP" && field.type.values?.type?.toUpperCase() === "RECORD") {
