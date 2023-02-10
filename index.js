@@ -5,21 +5,21 @@ async function run() {
   try {
     // 'avsc-to-lint' input defined in action metadata file
     const avscToLint = core.getInput('avsc-to-lint', {required: true});
-    const undocumentedCheck = core.getInput(
+    const undocumentedCheck = core.getBooleanInput(
       'undocumented-field-check',
       {required: true}
     );
-		const complexUnionCheck = core.getInput(
+    const complexUnionCheck = core.getBooleanInput(
       'complex-union-check',
       {required: true}
     );
     console.log(`Linting ${avscToLint}!`);
     await avrolint(
       avscToLint,
-			{
+      {
         "undocumentedCheck": undocumentedCheck,
         "complexUnionCheck": complexUnionCheck
-			}
+      }
     );
   } catch (error) {
     console.error(error.stack);

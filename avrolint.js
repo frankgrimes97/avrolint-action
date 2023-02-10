@@ -6,12 +6,12 @@ let avrolint = function(avscFilePath, options={"undocumentedCheck": true, "compl
   return new Promise((resolve) => {
     // default, assume input is single file
     var filePaths = [avscFilePath];
-		try {
+    try {
       // try to see if it's a list of paths in JSON array
       filePaths = JSON.parse(avscFilePath);
     }
     catch (err) {
-			// ignore
+      // ignore
     }
 
     var filePathsWithErrors = new Set();
@@ -93,7 +93,7 @@ let isOrContainsRecord = function(field) {
 }
 
 let isUnionType = function(type) {
-	return Array.isArray(type);
+  return Array.isArray(type);
 }
 
 let getRecordSchema = function(field) {
@@ -136,7 +136,7 @@ let getUnionSchema = function(field) {
   if (upperCaseFieldType === "ARRAY" && isUnionType(field.type.items)) {
     return field.type.items;
   } else if (upperCaseFieldType === "MAP" && isUnionType(field.type.values)) {
-    return field.type.values;
+     return field.type.values;
   }
 
 }
