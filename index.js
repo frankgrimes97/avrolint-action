@@ -9,17 +9,17 @@ async function run() {
       'undocumented-field-check',
       {required: true}
     );
-		const complexUnionCheck = core.getBooleanInput(
+    const complexUnionCheck = core.getBooleanInput(
       'complex-union-check',
       {required: true}
     );
     console.log(`Linting ${avscToLint}!`);
     await avrolint(
       avscToLint,
-			{
+      {
         "undocumentedCheck": undocumentedCheck,
         "complexUnionCheck": complexUnionCheck
-			}
+      }
     );
   } catch (error) {
     console.error(error.stack);
