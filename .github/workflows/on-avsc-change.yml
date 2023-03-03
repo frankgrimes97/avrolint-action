@@ -1,0 +1,34 @@
+name: avrolint-on-change
+
+on:
+  workflow_call:
+
+jobs:
+  avrolint:
+    name: avrolint
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v3
+
+      - name: Find changed AVSC files
+        id: changes
+        uses: dorny/paths-filter@v2.11.1
+        with:
+          list-files: json
+          filters: |
+            avsc:
+              - added|modified: '**/*.avsc'
+
+      - name: Avrolint
+        uses: frankgrimes97/avrolint-action@v1.0.5
+        if: steps.changes.outputs.avsc == 'true'
+        with:
+          avsc-to-lint: ${{ steps.changes.outputs.avsc_files }}
+
+          ## FIXME: Set to true once field are documented
+          ## undocumented-field-check: false
+
+          ## FIXME: Set to true once schemas get rid of complex unions
+          ## complex-union-check: false
