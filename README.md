@@ -32,3 +32,20 @@ Schema files (.avsc).
     complex-union-check: ''
 ```
 <!-- end usage -->
+
+## Build
+
+To build it locally, run `npm clean-install`.
+
+N.B. For efficiency of execution, [NCC](https://github.com/vercel/ncc) is used to build a single JavaScript file under the `dist/` folder.
+
+Be sure to check in changes to that file, otherwise changes made to the sources won't be reflected in what's run by the action.
+
+## Release
+
+Releases are handled through Git tags.
+
+Example tags:
+  - v1 (major version, moving tag)
+  - v1.0.0 (specific version, fixed/immutable tag)
+
